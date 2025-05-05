@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Scopri la tua fragranza</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      background-color: #f9f6f2;
+      color: #333;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      color: #7c4c2c;
+      text-align: center;
+    }
+    .description {
+      text-align: center;
+      font-size: 1.1em;
+      margin-bottom: 30px;
+      color: #555;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .question p {
+      font-weight: bold;
+    }
+    button {
+      display: block;
+      margin: 30px auto 10px;
+      padding: 12px 24px;
+      background-color: #7c4c2c;
+      color: white;
+      border: none;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 1.3em;
+      text-align: center;
+      color: #2e5a45;
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 0.9em;
+      color: #999;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Scopri la tua fragranza ideale</h1>
+  <div class="description">Un piccolo test per trovare l’atmosfera perfetta: accogliente, fresca, elegante o rilassante.</div>
+  <form id="quizForm">
+    <div class="question">
+      <p>1. Che atmosfera vuoi creare?</p>
+      <label><input type="radio" name="q1" value="rilassante"> Rilassante e calma</label><br>
+      <label><input type="radio" name="q1" value="energizzante"> Energizzante e frizzante</label><br>
+      <label><input type="radio" name="q1" value="naturale"> Naturale e fresca</label><br>
+      <label><input type="radio" name="q1" value="sofisticata"> Elegante e sofisticata</label><br>
+    </div>
+    <div class="question">
+      <p>2. Quando userai di più questa fragranza?</p>
+      <label><input type="radio" name="q2" value="mattina"> Mattina</label><br>
+      <label><input type="radio" name="q2" value="pomeriggio"> Pomeriggio</label><br>
+      <label><input type="radio" name="q2" value="sera"> Sera</label><br>
+      <label><input type="radio" name="q2" value="tutto"> Tutto il giorno</label><br>
+    </div>
+    <div class="question">
+      <p>3. In quale ambiente vuoi usarla?</p>
+      <label><input type="radio" name="q3" value="camera"> Camera da letto</label><br>
+      <label><input type="radio" name="q3" value="soggiorno"> Soggiorno</label><br>
+      <label><input type="radio" name="q3" value="bagno"> Bagno</label><br>
+      <label><input type="radio" name="q3" value="studio"> Studio/Ufficio</label><br>
+    </div>
+    <div class="question">
+      <p>4. Quale di queste parole ti rappresenta di più?</p>
+      <label><input type="radio" name="q4" value="calore"> Calore</label><br>
+      <label><input type="radio" name="q4" value="energia"> Energia</label><br>
+      <label><input type="radio" name="q4" value="pace"> Pace</label><br>
+      <label><input type="radio" name="q4" value="mistero"> Mistero</label><br>
+    </div>
+    <button type="button" onclick="calcolaRisultato()">Scopri la fragranza</button>
+  </form>
+  <div id="result"></div>
+  <footer>&copy; 2025 - Quiz fragranze | Design invernale neutro</footer>
+
+  <script>
+    function calcolaRisultato() {
+      var q1 = document.querySelector('input[name="q1"]:checked');
+      var q2 = document.querySelector('input[name="q2"]:checked');
+      var q3 = document.querySelector('input[name="q3"]:checked');
+      var q4 = document.querySelector('input[name="q4"]:checked');
+
+      if (!q1 || !q2 || !q3 || !q4) {
+        document.getElementById('result').innerText = "Rispondi a tutte le domande!";
+        return;
+      }
+
+      var risposte = [q1.value, q2.value, q3.value, q4.value];
+      var punteggi = {
+        "Melograno": 0,
+        "Pini silvestri": 0,
+        "Vaniglia & Ambra": 0,
+        "Agrumi & Menta": 0,
+        "Lavanda": 0,
+        "Legno di cedro & Patchouli": 0
+      };
+
+      for (var i = 0; i < risposte.length; i++) {
+        var r = risposte[i];
+        switch(r) {
+          case "rilassante": punteggi["Lavanda"]++; punteggi["Vaniglia & Ambra"]++; break;
+          case "energizzante": punteggi["Agrumi & Menta"]++; punteggi["Pini silvestri"]++; break;
+          case "naturale": punteggi["Pini silvestri"]++; punteggi["Legno di cedro & Patchouli"]++; break;
+          case "sofisticata": punteggi["Melograno"]++; punteggi["Vaniglia & Ambra"]++; break;
+          case "mattina": punteggi["Agrumi & Menta"]++; break;
+          case "pomeriggio": punteggi["Melograno"]++; break;
+          case "sera": punteggi["Lavanda"]++; punteggi["Vaniglia & Ambra"]++; break;
+          case "tutto": punteggi["Pini silvestri"]++; punteggi["Legno di cedro & Patchouli"]++; break;
+          case "camera": punteggi["Lavanda"]++; break;
+          case "soggiorno": punteggi["Melograno"]++; break;
+          case "bagno": punteggi["Agrumi & Menta"]++; break;
+          case "studio": punteggi["Legno di cedro & Patchouli"]++; break;
+          case "calore": punteggi["Vaniglia & Ambra"]++; break;
+          case "energia": punteggi["Agrumi & Menta"]++; break;
+          case "pace": punteggi["Lavanda"]++; break;
+          case "mistero": punteggi["Legno di cedro & Patchouli"]++; break;
+        }
+      }
+
+      var max = 0;
+      var fragranza = "";
+      for (var f in punteggi) {
+        if (punteggi[f] > max) {
+          max = punteggi[f];
+          fragranza = f;
+        }
+      }
+
+      document.getElementById('result').innerText = "La tua fragranza ideale è: " + fragranza;
+    }
+  </script>
+</body>
+</html>
